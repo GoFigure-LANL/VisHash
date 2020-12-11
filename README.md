@@ -1,2 +1,2 @@
-# GoFigure
-Computer vision algorithms for searching and analyzing technical and scientific images such as figures, diagrams and drawings.
+# VisHash
+Visual hash for comparing visual similarity of images, such as figures, diagrams and drawings.
