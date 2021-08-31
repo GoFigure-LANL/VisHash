@@ -19,7 +19,7 @@ Diagram Retrieval](https://spie.org/opo/conferencedetails/applications-of-machin
 Input is a directory containing images. A hash will be computed for each image. Two files are written: filenames_example.csv and signatures_example.npy, so that the order of the hashes (signatures) matches the order given in filenames_example.csv.
 
 ## Find duplicate images
-`calc_matches.py --postfix example --threshold 0.1
+`calc_matches.py --postfix example --threshold 0.2
 `
 
 This script will read filenames_example.csv and signatures_example.npy (such as produced by calc_vishash.py). The distance between pairs of image hashes is calculated, then filtered based on the given threshold to output a list of matches in matches_example.csv.
