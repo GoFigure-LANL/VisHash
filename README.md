@@ -2,7 +2,9 @@ Visual hash for comparing visual similarity of images; which works on a wide var
 
 # VisHash
 This repository is the official implementation of [VisHash: Visual Similarity Preserving Image Hashing for
-Diagram Retrieval](https://spie.org/opo/conferencedetails/applications-of-machine-learning).
+Diagram Retrieval](https://doi.org/10.1117/12.2594720).
+
+![Figure from paper depicting example of relative brightness of regions on three drawings of toy cars.](vishash_teaser.png)
 
 ## Requirements
 
