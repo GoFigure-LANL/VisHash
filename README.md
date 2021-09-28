@@ -11,14 +11,13 @@ Diagram Retrieval](https://doi.org/10.1117/12.2594720).
 * PIL or pillow
 * scikit-image
 * matplotlib
-* scipy
-* numpy
+* cairosvg (optional: necessary for reading SVG images)
 
 ## Calculate image hashes
 `calc_vishash.py --dataname example --image_path /path/to/images
 `
 
-Input is a directory containing images. A hash will be computed for each image. Two files are written: filenames_example.csv and signatures_example.npy, so that the order of the hashes (signatures) matches the order given in filenames_example.csv.
+Input is a directory containing images. A hash will be computed for each image. Two files are written: filenames_example.csv and signatures_example.npy, so that the order of the hashes (signatures) matches the order given in filenames_example.csv. Any unreadable or unsupported files will generate a log message, but processing on other images will continue.
 
 ## Find duplicate images
 `calc_matches.py --postfix example --threshold 0.2
