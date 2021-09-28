@@ -139,7 +139,7 @@ class ImageSignature(object):
                 img = rgb2gray(img)
 
         return img
-        
+
     
     def preprocess_image(self, image_or_path, bytestream=False):
         """Loads an image and converts to grayscale.
@@ -167,17 +167,30 @@ class ImageSignature(object):
             return self.im_array
         
         elif type(image_or_path) is str:
-            img = imread(image_or_path)
+            # Prefer imread over Image.open, except for formats that are not supported
+            # For png format, imread works better than Image.open
+            if image_or_path.endswith('svg'):
+                # skimage, PIL do not support svg
+                try:
+                    img = Image.open(BytesIO(svg2png(url=image_or_path, write_to=None)))
+                except (NameError, xml.etree.ElementTree.ParseError):
+                    pass
+            elif image_or_path.endswith('webp'):
+                # skimage does not support webp
+                img = Image.open(image_or_path)
+            else:
+                # Prefer to use skimage
+                img = imread(image_or_path)
             img = np.asarray(img, dtype=np.uint8)
             self.im_array = ImageSignature.convert_color(img)
             return self.im_array
         
         elif type(image_or_path) is bytes:
             try:
-                img = Image.open(image_or_path)
-            except IOError:
-                # try again due to PIL weirdness
                 img = imread(image_or_path)
+            except:
+                # try again if format not suppoted by skimage
+                img = Image.open(image_or_path)
             img = np.asarray(img, dtype=np.uint8)         
             self.im_array = ImageSignature.convert_color(img)
             return self.im_array
@@ -300,8 +313,11 @@ class ImageSignature(object):
             else:
                 # Patch will be square
                 self.patch_height = self.patch_width
-                
+        # Check that we have a valid patch size
+        assert self.patch_width > 0, 'Width of patch must be at least 1 pixel (%r calculated)' %self.patch_width
+        assert self.patch_height > 0, 'Height of patch must be at least 1 pixel (%r calculated)' %self.patch_height
 
+        
         # Second, calculate mean gray value per patch
         avg_gray = np.zeros((num_x, num_y))
         half_width = self.patch_width/2 # only need to calculate this once

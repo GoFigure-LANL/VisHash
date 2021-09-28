@@ -32,13 +32,8 @@ def compute_features(imglst, prunefail=True):
         fail = False
         ftr = 0
         try:
-            try:
-                gis = ImageSignature()
-                ftr = gis.generate_signature(f)
-            except:
-                im = Image.open(f) # works for TIFF, why not webp? What about svg?
-                gis = ImageSignature()
-                ftr = gis.generate_signature(im.tobitmap(), bytestream=True)
+            gis = ImageSignature()
+            ftr = gis.generate_signature(f)
         except Exception as e:
             if prunefail:
                 plst.append(k)
