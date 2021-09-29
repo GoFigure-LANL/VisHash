@@ -169,7 +169,7 @@ class ImageSignature(object):
         elif type(image_or_path) is str:
             # Prefer imread over Image.open, except for formats that are not supported
             # For png format, imread works better than Image.open
-            if image_or_path.endswith('svg'):
+            if image_or_path.endswith('svg') or image_or_path.endswith('svg+xml'):
                 # skimage, PIL do not support svg
                 try:
                     img = Image.open(BytesIO(svg2png(url=image_or_path, write_to=None)))
