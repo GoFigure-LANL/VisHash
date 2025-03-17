@@ -1,0 +1,12 @@
+name: vishash
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pillow
+  - scikit-image
+  - matplotlib
+  - cairosvg
+  - pylint
+  - flake8
+prefix: /opt/anaconda3/envs/vishash
